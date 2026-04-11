@@ -151,8 +151,10 @@ function vitePluginManusDebugCollector(): Plugin {
 }
 
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
+const repoBase = process.env.GITHUB_PAGES === "true" ? "/sql-vitualization/" : "/";
 
 export default defineConfig({
+  base: repoBase,
   plugins,
   resolve: {
     alias: {
