@@ -463,20 +463,19 @@ function buildMermaid(tables: SqlTable[]) {
       const flags = [
         column.isPrimaryKey ? "PK" : "",
         column.isForeignKey ? "FK" : "",
-        column.isUnique && !column.isPrimaryKey ? "UQ" : "",
-        column.notNull && !column.isPrimaryKey ? "NN" : "",
+        column.isUnique && !column.isPrimaryKey ? "UK" : "",
       ]
         .filter(Boolean)
         .join(", ");
 
-      lines.push(`    ${column.normalizedType} ${column.name}${flags ? ` \"${flags}\"` : ""}`);
+      lines.push(`    ${column.normalizedType} ${column.name}${flags ? ` ${flags}` : ""}`);
     }
     lines.push("  }");
   }
 
   for (const table of tables) {
     for (const foreignKey of table.foreignKeys) {
-      lines.push(`  ${foreignKey.referencesTable} ||--o{ ${table.name} : \"${foreignKey.column}\"`);
+      lines.push(`  ${foreignKey.referencesTable} ||--o{ ${table.name} : ${foreignKey.column}`);
     }
   }
 
